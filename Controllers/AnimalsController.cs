@@ -20,7 +20,7 @@ public class AnimalsController : ControllerBase {
         using(SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("Default"))) {
             string query = "SELECT * FROM Animal";
             query += " ORDER BY ";
-            switch(orderBy) {
+            /*switch(orderBy) {
                 case Order.description:
                     query += "Description";
                     break;
@@ -28,12 +28,16 @@ public class AnimalsController : ControllerBase {
                     query += "Category";
                     break;
                 case Order.area:
+                    Console.WriteLine(orderBy.ToString());
                     query += "Area";
                     break;
                 default:
                     query += "Name";
                     break;
-            }
+            }*/
+            if(orderBy == null)
+                orderBy = Order.name;
+            query += orderBy.ToString();
             query += ";";
             SqlCommand command = new SqlCommand(query, connection);
             connection.Open();
